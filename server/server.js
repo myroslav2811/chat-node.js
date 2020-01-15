@@ -12,7 +12,7 @@ const client = new MongoClient('mongodb://localhost:27017', {useUnifiedTopology:
 client.connect(err => {
     assert.equal(null, err);
     console.log('Connected to server...');
-    app.use(express.static('../view'));
+    app.use(express.static(__dirname + '/../view'));
     const db = client.db(dbName);
 
     io.on('connection', socket => {
@@ -26,8 +26,6 @@ client.connect(err => {
         socket.on('disconnect', () => {
             console.log(`user ${socket.id} disconnected`);
         });
-
-        //
 
         socket.on('send message', msg => {
             const obj = {
